@@ -31,5 +31,10 @@ namespace MonadsExtensions.OptionContainer
 
         public static TResult UnwrapOrException<TResult>(this Option<TResult> result) =>
             result.UnwrapOrException(new ArgumentNullException(nameof(result)));
+
+        public static Option<TResult> Bind<TInput, TResult>(this Option<TInput> result, Func<TInput, TResult> map)
+        {
+            return result.HasValue ? Some(map(result.Value)) : None;
+        }
     }
 }

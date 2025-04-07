@@ -1,4 +1,5 @@
 ﻿using System;
+using MonadsExtensions.Extensions;
 using MonadsExtensions.ResultContainer.Models;
 
 namespace MonadsExtensions.ResultContainer
@@ -33,5 +34,23 @@ namespace MonadsExtensions.ResultContainer
 
         public static TValue UnwrapOrException<TValue, TError>(this Result<TValue, TError> result, string message) =>
             result.UnwrapOrException(new Exception(message));
+
+        public static Result<TOutResult, TOutError> Bind<TInputResult, TInputError, TOutResult, TOutError>(
+            this Result<TInputResult, TInputError> result,
+            Func<TInputResult, TOutResult> onSuccess,
+            Func<TInputError, TOutError> onError)
+        {
+            return result.Bind(ProcessSuccess, ProcessError);
+
+            Result<TOutResult, TOutError> ProcessSuccess(TInputResult x) => Ok(x.Map(onSuccess));
+            Result<TOutResult, TOutError> ProcessError(TInputError x) => Error(x.Map(onError));
+        }
+
+        public static Result<TOutResult, TError> Bind<TInputResult, TOutResult, TError>(
+            this Result<TInputResult, TError> result,
+            Func<TInputResult, TOutResult> onSuccess)
+        {
+            return result.Bind(onSuccess, error => error);
+        }
     }
 }
