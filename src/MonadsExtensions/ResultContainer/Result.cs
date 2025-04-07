@@ -1,22 +1,23 @@
 ﻿using System;
 using MonadsExtensions.Extensions;
+using MonadsExtensions.ResultContainer.Models;
 
 namespace MonadsExtensions.ResultContainer
 {
     public readonly struct Result<TValue, TError>
     {
-        public Result(TValue value, TError error, bool hasValue)
+        private Result(TValue value, TError error, bool hasValue)
         {
             Value = value;
             Error = error;
             HasValue = hasValue;
         }
 
-        public Result(TValue value) : this(value, default, true)
+        private Result(TValue value) : this(value, default, true)
         {
         }
 
-        public Result(TError error) : this(default, error, false)
+        private Result(TError error) : this(default, error, false)
         {
         }
 
@@ -67,5 +68,15 @@ namespace MonadsExtensions.ResultContainer
         }
 
         public bool IsError(out TValue value, out TError error) => !IsValue(out value, out error);
+
+        public static implicit operator Result<TValue, TError>(IntermediateOk<TValue> ok) =>
+            new Result<TValue, TError>(ok.Value);
+
+        public static implicit operator Result<TValue, TError>(IntermediateError<TError> error) =>
+            new Result<TValue, TError>(error.Value);
+
+        public static Result<TValue, TError> CreateOk(TValue value) => Result.Ok(value);
+
+        public static Result<TValue, TError> CreateError(TError error) => Result.Error(error);
     }
 }
