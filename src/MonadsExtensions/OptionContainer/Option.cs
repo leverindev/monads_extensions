@@ -1,4 +1,6 @@
-﻿namespace MonadsExtensions.OptionContainer
+﻿using MonadsExtensions.OptionContainer.Models;
+
+namespace MonadsExtensions.OptionContainer
 {
     public readonly struct Option<T>
     {
@@ -24,5 +26,11 @@
 
             return HasValue;
         }
+
+        public static implicit operator Option<T>(None none) => new Option<T>();
+
+        public static Option<T> Some(T value) => new Option<T>(value);
+
+        public static Option<T> None => new Option<T>();
     }
 }
