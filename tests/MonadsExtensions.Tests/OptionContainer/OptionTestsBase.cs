@@ -4,6 +4,13 @@ namespace MonadsExtensions.Tests.OptionContainer;
 
 public abstract class OptionTestsBase
 {
+    protected Option<int> Parse(string input)
+    {
+        return int.TryParse(input, out var value)
+            ? Option.Some(value)
+            : Option.None;
+    }
+
     protected Option<bool> IsEven(string input)
     {
         if (int.TryParse(input, out var value))
