@@ -1,4 +1,5 @@
 ﻿using System;
+using MonadsExtensions.Extensions;
 
 namespace MonadsExtensions.ResultContainer
 {
@@ -29,22 +30,17 @@ namespace MonadsExtensions.ResultContainer
         {
             if (HasValue)
             {
-                onSuccess(Value);
+                Value.Do(onSuccess);
             }
             else
             {
-                onError(Error);
+                Error.Do(onError);
             }
         }
 
         public T Bind<T>(Func<TValue, T> onSuccess, Func<TError, T> onError)
         {
-            if (HasValue)
-            {
-                return onSuccess != null ? onSuccess(Value) : default;
-            }
-
-            return onError != null ? onError(Error) : default;
+            return HasValue ? Value.Map(onSuccess) : Error.Map(onError);
         }
 
         public void Deconstruct(out TValue value, out TError error)
