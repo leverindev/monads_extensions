@@ -39,7 +39,7 @@ namespace MonadsExtensions.ResultContainer
             }
         }
 
-        public T Bind<T>(Func<TValue, T> onSuccess, Func<TError, T> onError)
+        public T Match<T>(Func<TValue, T> onSuccess, Func<TError, T> onError)
         {
             return HasValue ? Value.Map(onSuccess) : Error.Map(onError);
         }

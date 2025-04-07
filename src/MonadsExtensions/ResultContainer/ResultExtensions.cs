@@ -15,14 +15,14 @@ namespace MonadsExtensions.ResultContainer
         public static Result<TValue, TError> ToError<TValue, TError>(this TError error) => Error(error);
 
         public static TValue UnwrapOrElse<TValue, TError>(this Result<TValue, TError> result, Func<TError, TValue> onError) =>
-            result.Bind(value => value, onError);
+            result.Match(value => value, onError);
 
         public static TValue UnwrapOrDefault<TValue, TError>(this Result<TValue, TError> result) =>
             result.UnwrapOrElse(error => default);
 
         public static TValue UnwrapOrException<TValue, TError>(this Result<TValue, TError> result, Exception exception)
         {
-            return result.Bind(
+            return result.Match(
                 value => value,
                 error =>
                 {
@@ -40,7 +40,7 @@ namespace MonadsExtensions.ResultContainer
             Func<TInputResult, TOutResult> onSuccess,
             Func<TInputError, TOutError> onError)
         {
-            return result.Bind(ProcessSuccess, ProcessError);
+            return result.Match(ProcessSuccess, ProcessError);
 
             Result<TOutResult, TOutError> ProcessSuccess(TInputResult x) => Ok(x.Map(onSuccess));
             Result<TOutResult, TOutError> ProcessError(TInputError x) => Error(x.Map(onError));
