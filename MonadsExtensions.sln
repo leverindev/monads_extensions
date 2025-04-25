@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonadsExtensions", "src\Mon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonadsExtensions.Tests", "tests\MonadsExtensions.Tests\MonadsExtensions.Tests.csproj", "{9CB6E92B-5F8A-42AC-9445-E94292902684}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{0C53453C-542E-4EAC-AC1B-89923DBAFC92}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{9CB6E92B-5F8A-42AC-9445-E94292902684}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9CB6E92B-5F8A-42AC-9445-E94292902684}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9CB6E92B-5F8A-42AC-9445-E94292902684}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C53453C-542E-4EAC-AC1B-89923DBAFC92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C53453C-542E-4EAC-AC1B-89923DBAFC92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C53453C-542E-4EAC-AC1B-89923DBAFC92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C53453C-542E-4EAC-AC1B-89923DBAFC92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

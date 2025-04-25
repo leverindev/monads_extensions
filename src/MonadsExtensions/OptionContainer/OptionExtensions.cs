@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using MonadsExtensions.OptionContainer.Models;
 
 namespace MonadsExtensions.OptionContainer
@@ -35,6 +36,11 @@ namespace MonadsExtensions.OptionContainer
         public static Option<TResult> Bind<TInput, TResult>(this Option<TInput> result, Func<TInput, TResult> map)
         {
             return result.HasValue ? Some(map(result.Value)) : None;
+        }
+
+        public static Task<Option<TResult>> BindAsync<TInput, TResult>(this Task<Option<TInput>> resultTask, Func<TInput, TResult> map)
+        {
+            return resultTask?.ContinueWith(task => Bind(task.Result, map));
         }
     }
 }

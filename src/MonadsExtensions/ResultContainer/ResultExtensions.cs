@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using MonadsExtensions.Extensions;
 using MonadsExtensions.ResultContainer.Models;
 
@@ -51,6 +52,56 @@ namespace MonadsExtensions.ResultContainer
             Func<TInputResult, TOutResult> onSuccess)
         {
             return result.Bind(onSuccess, error => error);
+        }
+
+        public static Task<Result<TOutResult, TOutError>> BindAsync<TInputResult, TInputError, TOutResult, TOutError>(
+            this Task<Result<TInputResult, TInputError>> resultTask,
+            Func<TInputResult, TOutResult> onSuccess,
+            Func<TInputError, TOutError> onError)
+        {
+            return resultTask?.ContinueWith(task => Bind(task.Result, onSuccess, onError));
+        }
+
+        public static Task<Result<TOutResult, TError>> BindAsync<TInputResult, TOutResult, TError>(
+            this Task<Result<TInputResult, TError>> resultTask,
+            Func<TInputResult, TOutResult> onSuccess)
+        {
+            return resultTask.BindAsync(onSuccess, error => error);
+        }
+
+        public static async Task<Result<TOutResult, TOutError>> BindAsync<TInputResult, TInputError, TOutResult, TOutError>(
+            this Task<Result<TInputResult, TInputError>> resultTask,
+            Func<TInputResult, Task<TOutResult>> onSuccess,
+            Func<TInputError, Task<TOutError>> onError)
+        {
+            var result = await resultTask.ConfigureAwait(false);
+
+            if (result.IsValue(out var value, out var error))
+            {
+                var outResult = await onSuccess(value).ConfigureAwait(false);
+
+                return Ok(outResult);
+            }
+
+            var outError = await onError(error).ConfigureAwait(false);
+
+            return Error(outError);
+        }
+
+        public static async Task<Result<TOutResult, TError>> BindAsync<TInputResult, TOutResult, TError>(
+            this Task<Result<TInputResult, TError>> resultTask,
+            Func<TInputResult, Task<TOutResult>> onSuccess)
+        {
+            var result = await resultTask.ConfigureAwait(false);
+
+            if (result.IsValue(out var value, out var error))
+            {
+                var outResult = await onSuccess(value).ConfigureAwait(false);
+
+                return Ok(outResult);
+            }
+
+            return Error(error);
         }
     }
 }
