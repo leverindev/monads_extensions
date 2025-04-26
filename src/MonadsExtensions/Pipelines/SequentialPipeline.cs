@@ -2,7 +2,7 @@
 
 namespace MonadsExtensions.Pipelines
 {
-    public class SequentialPipeline<TInput, TOutput, T> : IPipeline<TInput, TOutput>
+    internal class SequentialPipeline<TInput, TOutput, T> : IPipeline<TInput, TOutput>
     {
         private readonly IPipeline<TInput, T> _inputPipeline;
         private readonly IPipeline<T, TOutput> _outputPipeline;

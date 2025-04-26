@@ -1,22 +1,22 @@
-﻿using MonadsExtensions.Pipelines;
+﻿using MonadsExtensions.Pipelines.UpdateUserBalanceExample.Database.Entities;
 
 // new StringToNumberProcessorExample().Run();
 
-var updateUserBalanceExample = new UpdateUserBalanceExample();
+var updateUserBalanceExample = new MonadsExtensions.Pipelines.UpdateUserBalanceExample.AsyncPipelineExample.AsyncService();
 
-updateUserBalanceExample.UpdateUserBalance(new UserBalanceTransaction
+await updateUserBalanceExample.UpdateUserBalanceAsync(new UserBalanceTransaction
 {
     UserId = 1,
     Amount = 100,
 });
 
-updateUserBalanceExample.UpdateUserBalance(new UserBalanceTransaction
+await updateUserBalanceExample.UpdateUserBalanceAsync(new UserBalanceTransaction
 {
     UserId = 2,
     Amount = -500,
 });
 
-updateUserBalanceExample.UpdateUserBalance(new UserBalanceTransaction
+await updateUserBalanceExample.UpdateUserBalanceAsync(new UserBalanceTransaction
 {
     UserId = 10,
     Amount = 100,

@@ -1,4 +1,6 @@
-﻿namespace MonadsExtensions.Pipelines
+﻿using System;
+
+namespace MonadsExtensions.Pipelines
 {
     public static class PipeToExtensions
     {
@@ -7,30 +9,73 @@
             return new GenericStreamPipeline<TInput, TOutput>();
         }
 
-        public static IStreamPipeline<TInput, TOutput> AddProducer<TInput, TOutput>(this IStreamPipeline<TInput, TOutput> streamPipeline, IProducer<TInput> producer)
+        public static IStreamPipeline<TInput, TOutput> AddProducer<TInput, TOutput>(
+            this IStreamPipeline<TInput, TOutput> streamPipeline,
+            IProducer<TInput> producer)
         {
             streamPipeline.SetProducer(producer);
 
             return streamPipeline;
         }
 
-        public static IStreamPipeline<TInput, TOutput> AddConsumer<TInput, TOutput>(this IStreamPipeline<TInput, TOutput> streamPipeline, IConsumer<TOutput> consumer)
+        public static IStreamPipeline<TInput, TOutput> AddConsumer<TInput, TOutput>(
+            this IStreamPipeline<TInput, TOutput> streamPipeline,
+            IConsumer<TOutput> consumer)
         {
             streamPipeline.SetConsumer(consumer);
 
             return streamPipeline;
         }
 
-        public static IStreamPipeline<TInput, TOutput> AddPipe<TInput, TOutput>(this IStreamPipeline<TInput, TOutput> streamPipeline, IPipeline<TInput, TOutput> pipeline)
+        public static IStreamPipeline<TInput, TOutput> AddPipe<TInput, TOutput>(
+            this IStreamPipeline<TInput, TOutput> streamPipeline,
+            IPipeline<TInput, TOutput> pipeline)
         {
             streamPipeline.SetPipeline(pipeline);
 
             return streamPipeline;
         }
 
-        public static IPipeline<TInput, TOutput> PipeTo<TInput, TOutput, T>(this IPipeline<TInput, T> inputPipeline, IPipeline<T, TOutput> outputPipeline)
+        public static IPipeline<TInput, TOutput> PipeTo<TInput, TOutput, T>(
+            this IPipeline<TInput, T> inputPipeline,
+            IPipeline<T, TOutput> outputPipeline)
         {
             return new SequentialPipeline<TInput, TOutput, T>(inputPipeline, outputPipeline);
+        }
+
+        public static IPipeline<TInput, TOutput> PipeTo<TInput, TOutput, T>(
+            this IPipeline<TInput, T> inputPipeline,
+            Func<T, TOutput> mapFunc)
+        {
+            return new MapPipeline<TInput, TOutput, T>(inputPipeline, mapFunc);
+        }
+
+        public static IAsyncPipeline<TInput, TOutput> PipeTo<TInput, TOutput, T>(
+            this IAsyncPipeline<TInput, T> inputPipeline,
+            IAsyncPipeline<T, TOutput> outputPipeline)
+        {
+            return new AsyncSequentialPipeline<TInput, TOutput, T>(inputPipeline, outputPipeline);
+        }
+
+        public static IAsyncPipeline<TInput, TOutput> PipeTo<TInput, TOutput, T>(
+            this IAsyncPipeline<TInput, T> inputPipeline,
+            Func<T, TOutput> mapFunc)
+        {
+            return new AsyncMapPipeline<TInput, TOutput, T>(inputPipeline, mapFunc);
+        }
+
+        public static IAsyncPipeline<TInput, TOutput> PipeTo<TInput, TOutput, T>(
+            this IPipeline<TInput, T> inputPipeline,
+            IAsyncPipeline<T, TOutput> outputPipeline)
+        {
+            return new AsyncSequentialPipeline<TInput, TOutput, T>(new AsyncPipelineWrapper<TInput, T>(inputPipeline), outputPipeline);
+        }
+
+        public static IAsyncPipeline<TInput, TOutput> PipeTo<TInput, TOutput, T>(
+            this IAsyncPipeline<TInput, T> inputPipeline,
+            IPipeline<T, TOutput> outputPipeline)
+        {
+            return new AsyncSequentialPipeline<TInput, TOutput, T>(inputPipeline, new AsyncPipelineWrapper<T, TOutput>(outputPipeline));
         }
     }
 }
