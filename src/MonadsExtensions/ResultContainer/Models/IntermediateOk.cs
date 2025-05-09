@@ -1,12 +1,6 @@
-﻿namespace MonadsExtensions.ResultContainer.Models
-{
-    public readonly struct IntermediateOk<T>
-    {
-        public T Value { get; }
+﻿namespace MonadsExtensions.ResultContainer.Models;
 
-        public IntermediateOk(T value)
-        {
-            Value = value;
-        }
-    }
+public readonly struct IntermediateOk<T>(T value)
+{
+    public T Value { get; } = value;
 }

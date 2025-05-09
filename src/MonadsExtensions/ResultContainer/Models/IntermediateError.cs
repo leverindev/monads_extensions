@@ -1,12 +1,6 @@
-﻿namespace MonadsExtensions.ResultContainer.Models
-{
-    public readonly struct IntermediateError<T>
-    {
-        public T Value { get; }
+﻿namespace MonadsExtensions.ResultContainer.Models;
 
-        public IntermediateError(T value)
-        {
-            Value = value;
-        }
-    }
+public readonly struct IntermediateError<T>(T value)
+{
+    public T Value { get; } = value;
 }
