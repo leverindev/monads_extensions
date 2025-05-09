@@ -1,3 +1,5 @@
+[![Build](https://github.com/leverindev/monads_extensions/actions/workflows/dotnet.yml/badge.svg)](https://github.com/leverindev/monads_extensions/actions/workflows/dotnet.yml)
+
 # Functional Programming Monads Extensions
 
 This library provides useful functional programming monads: **Option** (also known as Maybe)  and **Result**.
