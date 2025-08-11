@@ -2,6 +2,32 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <LangVersion>latest</LangVersion>
+
+    <Authors>leverindev</Authors>
+    <PackageId>MonadsExtensions_leverindev</PackageId>
+    <PackageTags>extensions; monads</PackageTags>
+    <Description>The library provides useful functional programming monads: Option (also known as Maybe)  and Result.</Description>
+    <RepositoryUrl>https://github.com/leverindev/monads_extensions</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/leverindev/monads_extensions</PackageProjectUrl>
+    <PackageLicenseExpression></PackageLicenseExpression>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Title>MonadsExtensions</Title>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Version>1.0.0</Version>
+
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE" Link="LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
