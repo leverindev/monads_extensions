@@ -1,6 +1,7 @@
-﻿using System;
+﻿using MonadsExtensions.Pipelines.Sync;
+using System;
 
-namespace MonadsExtensions.Pipelines
+namespace MonadsExtensions.Pipelines.Stream
 {
     public class GenericStreamPipeline<TInput, TOutput> : IStreamPipeline<TInput, TOutput>
     {

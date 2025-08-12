@@ -1,6 +1,7 @@
 ﻿using System;
+using MonadsExtensions.Pipelines.Sync;
 
-namespace MonadsExtensions.Pipelines
+namespace MonadsExtensions.Pipelines.Stream
 {
     public class StringToNumberProcessorExample
     {
@@ -22,7 +23,7 @@ namespace MonadsExtensions.Pipelines
 
             producer.Complete();
 
-            PipeToExtensions.Create<string, int>()
+            PipeExtensions.Create<string, int>()
                 .AddProducer(producer)
                 .AddConsumer(consumer)
                 .AddPipe(pipe)

@@ -1,4 +1,4 @@
-﻿namespace MonadsExtensions.Pipelines
+﻿namespace MonadsExtensions.Pipelines.Stream
 {
     public interface IProducer<out T>
     {

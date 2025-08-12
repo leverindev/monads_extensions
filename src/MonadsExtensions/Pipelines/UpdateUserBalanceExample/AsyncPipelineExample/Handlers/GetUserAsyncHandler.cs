@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using MonadsExtensions.Pipelines.Async;
 using MonadsExtensions.Pipelines.UpdateUserBalanceExample.Database.Entities;
 using MonadsExtensions.ResultContainer;
 

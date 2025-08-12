@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MonadsExtensions.Pipelines
+namespace MonadsExtensions.Pipelines.Stream
 {
     public class CollectionConsumer<T> : IConsumer<T>
     {

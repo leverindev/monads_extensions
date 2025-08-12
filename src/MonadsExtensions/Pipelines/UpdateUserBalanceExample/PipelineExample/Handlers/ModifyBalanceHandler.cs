@@ -1,4 +1,5 @@
-﻿using MonadsExtensions.Pipelines.UpdateUserBalanceExample.Models;
+﻿using MonadsExtensions.Pipelines.Sync;
+using MonadsExtensions.Pipelines.UpdateUserBalanceExample.Models;
 using MonadsExtensions.ResultContainer;
 
 namespace MonadsExtensions.Pipelines.UpdateUserBalanceExample.PipelineExample.Handlers

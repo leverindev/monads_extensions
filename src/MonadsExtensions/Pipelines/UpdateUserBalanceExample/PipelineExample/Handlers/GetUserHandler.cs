@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using MonadsExtensions.Pipelines.Sync;
 using MonadsExtensions.Pipelines.UpdateUserBalanceExample.Database.Entities;
 using MonadsExtensions.ResultContainer;
 

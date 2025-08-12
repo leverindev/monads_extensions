@@ -1,6 +1,6 @@
 ﻿using System.Collections.Concurrent;
 
-namespace MonadsExtensions.Pipelines
+namespace MonadsExtensions.Pipelines.Stream
 {
     public class CollectionProducer<T> : IProducer<T>
     {
